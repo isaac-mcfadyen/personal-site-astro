@@ -1,0 +1,65 @@
+---
+import ASLogo from "@components/ASLogo.svelte";
+import MainLayout from "@layouts/MainLayout.astro";
+import toronto from "@assets/Toronto.jpg";
+import OptimizedImage from "@components/OptimizedImage.astro";
+---
+
+<MainLayout
+	title="AS213339"
+	description="AS21339 is an AS I use for educational and learning purposes, primarily advertised out of Toronto."
+>
+	<ASLogo client:load />
+
+	<div class="flex justify-evenly items-start px-12 mb-12">
+		<div class="flex flex-col w-[500px] mt-4">
+			<h2 class="text-2xl font-bold mb-2">Advertised out of Toronto, Canada</h2>
+			<p>
+				I advertise routes out of Toronto, via a server at <a
+					href="https://xenyth.net/"
+					target="_blank"
+					rel="noopener noreferrer">Xenyth Cloud</a
+				>. See my info on <a
+					href="https://bgp.tools/as/213339"
+					target="_blank"
+					rel="noopener noreferrer">BGP Tools</a
+				>, <a
+					href="https://bgp.he.net/AS213339"
+					target="_blank"
+					rel="noopener noreferrer">Hurricane Electric</a
+				>, <a
+					href="https://ipinfo.io/AS213339"
+					target="_blank"
+					rel="noopener noreferrer">IPInfo</a
+				>, and <a
+					href="https://www.peeringdb.com/asn/213339"
+					target="_blank"
+					rel="noopener noreferrer">PeeringDB</a
+				>.
+			</p>
+			<p>
+				I have a fairly open peering policy: just <a href="/contact"
+					>reach out</a
+				>! Currently, I peer with <a
+					href="http://www.as1003.net"
+					target="_blank"
+					rel="noopener noreferrer">andrewnet</a
+				> and
+				<a href="https://as835.net/" target="_blank" rel="noopener noreferrer"
+					>GoCodeIT</a
+				>.
+			</p>
+			<h2 class="text-2xl font-bold mb-2 mt-6">Contact</h2>
+			<span
+				>Reach me at <a href="mailto:isaac@imcf.me">isaac@imcf.me</a> for Peering,
+				Abuse, and NOC, or via my <a href="/contact">contact form</a>.
+			</span>
+		</div>
+		<OptimizedImage
+			src={toronto}
+			alt="Toronto, Canada skyline"
+			width={400}
+			class="rounded-lg"
+		/>
+	</div>
+</MainLayout>

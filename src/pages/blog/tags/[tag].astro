@@ -1,0 +1,41 @@
+---
+import BlogCard from "@components/BlogCard.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+	const tags = posts.map((post) => post.data.tags ?? []).flat();
+	const uniqueTags = [...new Set(tags)];
+
+	return uniqueTags.map((tag) => {
+		const taggedPosts = posts.filter((post) => post.data.tags?.includes(tag));
+		return {
+			params: { tag },
+			props: { posts: taggedPosts },
+		};
+	});
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { posts } = Astro.props;
+const { tag } = Astro.params;
+---
+
+<MainLayout title={`Posts Tagged #${tag} | Isaac McFadyen's Site`}>
+	<div class="flex flex-col justify-start items-center px-4">
+		<h1 class="text-3xl font-bold text-center mt-8">#{tag}</h1>
+		<p class="text-lg max-w-screen-sm mx-auto text-center mt-4">
+			All of the posts from my blog tagged #{tag}. Click <a href="/blog">here</a
+			> to go back to all of my posts.
+		</p>
+		<div
+			class="mt-8 w-screen-lg"
+			style="display: grid; grid-template-columns: repeat(auto-fit, 400px); grid-gap: 1rem"
+		>
+			{posts.map((post) => <BlogCard post={post} />)}
+		</div>
+	</div>
+</MainLayout>

@@ -1,0 +1,45 @@
+---
+import BlogCard from "@components/BlogCard.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import type { InferGetStaticPropsType } from "astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths({ paginate }: any) {
+	const posts = await getCollection("blog");
+	return paginate(posts, { pageSize: 9 });
+}
+const { page } = Astro.props;
+---
+
+<MainLayout title="Blog | Isaac McFadyen's Site">
+	<div class="flex flex-col justify-start items-center px-4">
+		<h1 class="text-3xl font-bold text-center mt-8">Blog</h1>
+		<p class="text-lg max-w-screen-sm mx-auto text-center mt-6">
+			Here I share miscellaneous posts about projects I'm working on and things
+			I find interesting. Feel free to <a href="/contact"
+				>send me any questions you have!</a
+			>
+		</p>
+		<div
+			class="mt-8 max-w-screen w-screen-xl"
+			style="display: grid; grid-template-columns: repeat(auto-fit, 400px); grid-gap: 1rem; justify-content: center;"
+		>
+			{page.data.map((post: any) => <BlogCard post={post} />)}
+		</div>
+		<div class="mt-12 w-full max-w-screen-sm flex justify-between items-center">
+			<a
+				class={page.url.prev != null ? "" : "invisible"}
+				href={page.url.prev}
+				aria-hidden={page.url.prev == null}
+				aria-label="Previous page">Previous</a
+			>
+			<span>Page {page.currentPage} of {page.lastPage}</span>
+			<a
+				class={page.url.next != null ? "" : "invisible"}
+				href={page.url.next}
+				aria-hidden={page.url.next == null}
+				aria-label="Next page">Next</a
+			>
+		</div>
+	</div>
+</MainLayout>

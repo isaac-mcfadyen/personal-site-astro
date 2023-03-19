@@ -1,0 +1,7 @@
+name = "personal-site-contact"
+main = "contact-worker.ts"
+compatibility_date = "2023-03-18"
+route = { pattern = "api.imcf.me/*", zone_name = "imcf.me" }
+
+[vars]
+WEBHOOK_URL = "https://canary.discord.com/api/webhooks/1086820284440531084/rKX0Kr5tBjGTEEBV7gpLKr3L3_ftjlI9fUuFW84xP6RbNqjZ4UJU3crwdpsdNORhjrwy"

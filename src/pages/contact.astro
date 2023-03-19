@@ -1,0 +1,62 @@
+---
+import ContactMessage from "@components/ContactMessage.svelte";
+import MainLayout from "@layouts/MainLayout.astro";
+---
+
+<MainLayout
+	title="Contact | Isaac McFadyen's Website"
+	description="If you have a question or comment, feel free to reach out using the form below!"
+>
+	<script
+		slot="head"
+		src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+		async
+		defer
+	></script>
+
+	<div class="flex flex-col justify-start items-center px-4">
+		<h1 class="text-3xl font-bold text-center mt-8">Contact</h1>
+		<p class="text-lg max-w-screen-sm mx-auto text-center mt-6">
+			Have a question, comment, or just want to say hi? Reach out to me by
+			filling out the form below.
+		</p>
+		<div class="pt-4">
+			<ContactMessage client:load />
+		</div>
+		<form
+			class="flex flex-col mt-4 w-[300px]"
+			method="POST"
+			action="https://api.imcf.me/contact"
+		>
+			<label for="name" class="font-bold text-sm mt-4">Name</label>
+			<input
+				type="text"
+				name="name"
+				id="name"
+				class="bg-slate-700 text-white px-2 py-1 rounded"
+			/>
+			<label for="email" class="font-bold text-sm mt-4">Email</label>
+			<input
+				type="email"
+				name="email"
+				id="email"
+				class="bg-slate-700 text-white px-2 py-1 rounded"
+			/>
+			<label for="message" class="font-bold text-sm mt-4">Message</label>
+			<textarea
+				name="message"
+				id="message"
+				rows="5"
+				class="bg-slate-700 text-white px-2 py-1 rounded"></textarea>
+			<div class="mt-4">
+				<div class="cf-turnstile" data-sitekey="0x4AAAAAAADUKutzeZvRXR2o"></div>
+			</div>
+
+			<button
+				type="submit"
+				class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-400 transition text-white w-[100px] ml-auto mt-4"
+				>Submit</button
+			>
+		</form>
+	</div>
+</MainLayout>

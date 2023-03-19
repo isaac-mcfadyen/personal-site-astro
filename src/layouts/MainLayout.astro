@@ -1,0 +1,46 @@
+---
+import "virtual:windi.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/700.css";
+import Header from "@components/Header.astro";
+
+interface Props {
+	title: string;
+	description: string;
+}
+const { title, description } = Astro.props;
+const page = Astro.request.url;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={page} />
+		<link rel="icon" href="/favicon.png" />
+		<slot name="head" />
+	</head>
+	<body class="dark h-screen bg-slate-900 text-white">
+		<Header />
+		<slot />
+		<div class="h-[60px]"></div>
+	</body>
+</html>
+
+<style>
+	body {
+		background-image: radial-gradient(
+				circle at center,
+				rgba(5, 10, 20, 0.2),
+				rgba(5, 10, 20, 0.9)
+			),
+			url("data:image/svg+xml,%3Csvg width='12' height='24' viewBox='0 0 12 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M2 0h2v12H2V0zm1 20c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM9 8c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-1 4h2v12H8V12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	}
+</style>
+<style is:global>
+	a {
+		@apply font-bold text-blue-300 hover:text-blue-500 visited:text-purple-300 hover:visited:text-purple-500 transition;
+	}
+</style>

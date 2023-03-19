@@ -1,0 +1,77 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import type { InferGetStaticPropsType } from "astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+	return posts.map((post) => {
+		return {
+			params: { slug: post.slug },
+			props: { post },
+		};
+	});
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { post } = Astro.props;
+const datePublished = new Intl.DateTimeFormat("en-CA", {
+	dateStyle: "medium",
+}).format(post.data.datePublished);
+const { Content } = await post.render();
+const ldJson = {
+	"@context": "http://schema.org",
+	"@type": "BlogPosting",
+	headline: post.data.title,
+	datePublished: post.data.datePublished.toISOString(),
+	image: {
+		"@type": "ImageObject",
+		url: post.data.image?.src || "",
+	},
+};
+---
+
+<MainLayout
+	title={`${post.data.title} | Isaac McFadyen's Site`}
+	description={post.data.description}
+>
+	<script
+		slot="head"
+		type="application/ld+json"
+		set:html={JSON.stringify(ldJson)}
+	></script>
+
+	<div class="flex flex-col justify-center items-center mt-8 px-8">
+		{
+			post.data.image && (
+				<Image
+					src={post.data.image as any}
+					alt={post.data.title}
+					width={600}
+					height={338}
+					class="rounded mt-12 mx-auto"
+				/>
+			)
+		}
+		{
+			post.data.imageText && (
+				<div class="h-[338px] w-[600px] mx-8 flex justify-center items-center">
+					<p class="text-center text-6xl font-bold">{post.data.imageText}</p>
+				</div>
+			)
+		}
+		<h1 class="text-3xl font-bold mt-6">{post.data.title}</h1>
+		<p class="text-md text-gray-200 mt-1 mb-0">{datePublished}</p>
+		<div class="max-w-screen-sm !text-white mt-4">
+			<Content />
+		</div>
+	</div>
+</MainLayout>
+
+<style is:inline>
+	p {
+		margin: 1rem;
+		line-height: 2;
+	}
+</style>
