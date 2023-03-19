@@ -7,8 +7,9 @@ import Header from "@components/Header.astro";
 interface Props {
 	title: string;
 	description: string;
+	enablePattern?: boolean;
 }
-const { title, description } = Astro.props;
+const { title, description, enablePattern = false } = Astro.props;
 const page = Astro.request.url;
 ---
 
@@ -22,7 +23,11 @@ const page = Astro.request.url;
 		<link rel="icon" href="/favicon.png" />
 		<slot name="head" />
 	</head>
-	<body class="dark h-screen bg-slate-900 text-white">
+	<body
+		class={`dark h-screen bg-slate-900 text-white ${
+			enablePattern ? "pattern" : ""
+		}`}
+	>
 		<Header />
 		<slot />
 		<div class="h-[60px]"></div>
@@ -30,7 +35,7 @@ const page = Astro.request.url;
 </html>
 
 <style>
-	body {
+	.pattern {
 		background-image: radial-gradient(
 				circle at center,
 				rgba(5, 10, 20, 0.2),
