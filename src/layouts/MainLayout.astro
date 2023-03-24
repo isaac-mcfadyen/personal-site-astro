@@ -21,6 +21,14 @@ const page = Astro.request.url;
 		<meta name="description" content={description} />
 		<link rel="canonical" href={page} />
 		<link rel="icon" href="/favicon.png" />
+
+		<!-- Plausible Analytics (no cookies) -->
+		<script
+			defer
+			data-domain="imcf.me"
+			src="https://plausible.imcf.me/js/script.js"
+		></script>
+
 		<slot name="head" />
 	</head>
 	<body
