@@ -8,17 +8,26 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://imcf.me",
-  integrations: [svelte(), markdoc(), mdx(), sitemap()],
-  vite: {
-    plugins: [windicss(), FontaineTransform.vite({
-      fallbacks: ["BlinkMacSystemFont", "Segoe UI", "Helvetica Neue", "Arial", "Noto Sans"]
-    })]
-  },
-  experimental: {
-    assets: true
-  },
-  image: {
-    service: "astro/assets/services/sharp"
-  }
+	site: "https://www.imcf.me",
+	integrations: [svelte(), markdoc(), mdx(), sitemap()],
+	vite: {
+		plugins: [
+			windicss(),
+			FontaineTransform.vite({
+				fallbacks: [
+					"BlinkMacSystemFont",
+					"Segoe UI",
+					"Helvetica Neue",
+					"Arial",
+					"Noto Sans",
+				],
+			}),
+		],
+	},
+	experimental: {
+		assets: true,
+	},
+	image: {
+		service: "astro/assets/services/sharp",
+	},
 });
