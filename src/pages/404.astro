@@ -1,0 +1,19 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import portrait from "@assets/Portrait.jpg";
+import OptimizedImage from "@components/OptimizedImage.astro";
+---
+
+<MainLayout
+    enablePattern={true}
+    title="404 Page not Found"
+    description="No page was found at this URL. Go home?"
+>
+    <div
+        class="w-screen flex flex-col justify-center items-center px-4"
+        style="height: calc(100vh - 60px - 60px)"
+    >
+        <h1 class="font-bold text-4xl mb-4">404 Not Found</h1>
+        <p class="text-lg">Click <a href="/">here</a> to return back home.</p>
+    </div>
+</MainLayout>
